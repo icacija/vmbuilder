@@ -515,10 +515,13 @@ echo
 echo
 echo "Please select the cloud image you would like to use"
 PS3='Select an option and press Enter: '
-options=("Ubuntu Hirsute Hippo 21.04 Cloud Image" "Ubuntu Groovy 20.10 Cloud Image" "Ubuntu Focal 20.04 Cloud Image" "Ubuntu Minimal Focal 20.04 Cloud Image" "CentOS 7 Cloud Image" "Debian 10 Cloud Image" "Debian 9 Cloud Image" "Ubuntu 18.04 Bionic Image" "CentOS 8 Cloud Image" "Fedora 32 Cloud Image" "Rancher OS Cloud Image")
+options=("Alma Linux Latest" "Ubuntu Hirsute Hippo 21.04 Cloud Image" "Ubuntu Groovy 20.10 Cloud Image" "Ubuntu Focal 20.04 Cloud Image" "Ubuntu Minimal Focal 20.04 Cloud Image" "CentOS 7 Cloud Image" "Debian 10 Cloud Image" "Debian 9 Cloud Image" "Ubuntu 18.04 Bionic Image" "CentOS 8 Cloud Image" "Fedora 32 Cloud Image" "Rancher OS Cloud Image")
 select osopt in "${options[@]}"
 do
   case $osopt in
+        "Alma Linux Latest"
+          [ -f "$isostorage/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2" ] && echo && echo "Moving on you have this cloud image" && break || echo && echo "You do not have this cloud image file so we are downloading it now" && echo && wget https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2 -P $isostorage && break
+          ;;        
         "Ubuntu Hirsute Hippo 21.04 Cloud Image")
           [ -f "$isostorage/hirsute-server-cloudimg-amd64-disk-kvm.img" ] && echo && echo "Moving on you have this cloud image" && break || echo && echo "You do not have this cloud image file so we are downloading it now" && echo && wget https://cloud-images.ubuntu.com/hirsute/current/hirsute-server-cloudimg-amd64-disk-kvm.img -P $isostorage && break
           ;;
@@ -560,7 +563,10 @@ echo "You have selected Cloud Image $osopt"
 echo
 
 # setting the Cloud Image for later for qm info
-if [ "$osopt" == "Ubuntu Hirsute Hippo 21.04 Cloud Image" ];
+if [ "$osopt" == "Alma Linux Latest" ];
+then
+   cloudos=$isostorage'AlmaLinux-8-GenericCloud-latest.x86_64.qcow2'
+elif [ "$osopt" == "Ubuntu Hirsute Hippo 21.04 Cloud Image" ];
 then
    cloudos=$isostorage'hirsute-server-cloudimg-amd64-disk-kvm.img'
 elif [ "$osopt" == "Ubuntu Groovy 20.10 Cloud Image" ];
