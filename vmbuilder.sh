@@ -519,7 +519,7 @@ options=("Alma Linux Latest" "Ubuntu Hirsute Hippo 21.04 Cloud Image" "Ubuntu Gr
 select osopt in "${options[@]}"
 do
   case $osopt in
-        "Alma Linux Latest"
+        "Alma Linux Latest")
           [ -f "$isostorage/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2" ] && echo && echo "Moving on you have this cloud image" && break || echo && echo "You do not have this cloud image file so we are downloading it now" && echo && wget https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2 -P $isostorage && break
           ;;        
         "Ubuntu Hirsute Hippo 21.04 Cloud Image")
